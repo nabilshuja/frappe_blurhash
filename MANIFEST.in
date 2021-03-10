@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include frappe_blurhash *.css
+recursive-include frappe_blurhash *.csv
+recursive-include frappe_blurhash *.html
+recursive-include frappe_blurhash *.ico
+recursive-include frappe_blurhash *.js
+recursive-include frappe_blurhash *.json
+recursive-include frappe_blurhash *.md
+recursive-include frappe_blurhash *.png
+recursive-include frappe_blurhash *.py
+recursive-include frappe_blurhash *.svg
+recursive-include frappe_blurhash *.txt
+recursive-exclude frappe_blurhash *.pyc
