@@ -10,7 +10,7 @@ from frappe_blurhash import __version__ as version
 setup(
 	name='frappe_blurhash',
 	version=version,
-	description='A simple wrapper for using blurhash with frappe',
+	description='A simple frappe app for using blurhash',
 	author='Mirza Nabil Shuja',
 	author_email='nabilshuja@gmail.com',
 	packages=find_packages(),

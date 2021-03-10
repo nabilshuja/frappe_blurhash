@@ -1,6 +1,6 @@
 ## Frappe BlurHash
 
-A simple wrapper for using blurhash with frappe
+A simple frappe app for using blurhash 
 
 #### License
 
