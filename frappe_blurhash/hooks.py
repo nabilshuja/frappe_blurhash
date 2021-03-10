@@ -5,7 +5,7 @@ from . import __version__ as app_version
 app_name = "frappe_blurhash"
 app_title = "Frappe BlurHash"
 app_publisher = "Mirza Nabil Shuja"
-app_description = "A simple wrapper for using blurhash with frappe"
+app_description = "A simple app to use BlurHash with frappe"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "nabilshuja@gmail.com"
