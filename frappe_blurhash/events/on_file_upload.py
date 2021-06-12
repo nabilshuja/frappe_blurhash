@@ -1,36 +1,31 @@
-import frappe
 import blurhash
+import frappe
 import numpy as np
-from PIL import Image
-
-def is_image_path(path):
-  if not path:
-    return
-  exts = ["jpg", "jpeg", "png"]
-  path = path.lower()
-  for e in exts:
-    if e in path:
-      return True
-  return False
+import requests
+from frappe.core.doctype.file.file import get_local_image, get_web_image
 
 
 def on_file_upload(doc, methods=None):
-  if not is_image_path(doc.file_url) or doc.is_private:
+    frappe.enqueue(set_blur_hash, enqueue_after_commit=True, queue="long",
+                   is_async=False if frappe.flags.in_test else True, doc=doc)
+
+
+def set_blur_hash(doc):
+    # TODO create doctype settings for components
+    if doc.file_url:
+        if doc.file_url.startswith("/files"):
+            try:
+                image, filename, extn = get_local_image(doc.file_url)
+            except IOError:
+                return
+
+        else:
+            try:
+                image, filename, extn = get_web_image(doc.file_url)
+            except (
+                requests.exceptions.HTTPError, requests.exceptions.SSLError,
+                IOError,
+                TypeError):
+                return
+        doc.db_set('blurhash', blurhash.encode(np.array(image.convert("RGB"))))
     return doc
-  # TODO create doctype settings for components
-  file_url = doc.file_url
-  if file_url.startswith("/private"):
-    file_url_path = (file_url.lstrip("/"),)
-  else:
-    file_url_path = ("public", file_url.lstrip("/"))
-
-  file_path = frappe.get_site_path(*file_url_path)
-
-  image = Image.open(file_path)
-
-  hash = blurhash.encode(np.array(image.convert("RGB")))
-  doc.db_set('blurhash', hash)
-  return doc
-
-
-
