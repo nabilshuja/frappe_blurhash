@@ -6,7 +6,7 @@ from frappe.core.doctype.file.file import get_local_image, get_web_image
 
 
 def on_file_upload(doc, methods=None):
-    frappe.enqueue(set_blur_hash, enqueue_after_commit=True, queue="long",
+    frappe.enqueue(set_blur_hash, enqueue_after_commit=True, queue="short",
                    is_async=False if frappe.flags.in_test else True, doc=doc)
 
 
