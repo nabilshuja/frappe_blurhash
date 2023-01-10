@@ -18,7 +18,7 @@ def set_blur_hash(doc):
     # gracefully handle failure's of blurhash
     try:
         if doc.file_url:
-            if doc.file_url.startswith("/files"):
+            if doc.file_url.startswith("/files") or doc.file_url.startswith("/private/files"):
                 try:
                     image, filename, extn = get_local_image(doc.file_url)
                     image.thumbnail(MAX_RESIZE)
